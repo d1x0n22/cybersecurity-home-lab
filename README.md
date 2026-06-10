@@ -14,28 +14,27 @@ Projekt polega na zaprojektowaniu, wdrożeniu i zabezpieczeniu odizolowanego lab
 ## 2. Architektura Sieci (Network Architecture)
 Kluczowym założeniem projektu było zapewnienie pełnej izolacji maszyn wirtualnych. Zastosowano sieć typu **NAT Network** (Sieć NAT) w VirtualBox, o adresacji `10.0.2.0/24`.
 
-* **Kali Linux IP:** `[TUTAJ WPISZ IP KALI, np. 10.0.2.4]`
-* **Ubuntu Server (Juice Shop) IP:** `[TUTAJ WPISZ IP UBUNTU, np. 10.0.2.5]`
+* **Kali Linux IP:** `10.10.10.10`
+* **Ubuntu Server (Juice Shop) IP:** `10.10.10.30`
 
 Dzięki takiej konfiguracji:
 1. Maszyny wirtualne mogą komunikować się między sobą.
-2. Maszyny mają dostęp do Internetu (w celu pobierania aktualizacji/pakietów).
+2. System Kali Linux dostęp do Internetu (w celu pobierania aktualizacji/pakietów).
 3. **Sieć lokalna hosta (LAN) jest chroniona** – ruch z maszyn wirtualnych nie ma bezpośredniego dostępu do urządzeń w domowej sieci.
 
-*[TUTAJ WSTAW SCHEMAT SIECI - Wygeneruj go np. na draw.io, zapisz jako PNG, wrzuć do repozytorium i dodaj link poniżej]*
-![Schemat Architektury Sieci](sciezka_do_obrazka/schemat.png)
+*![Schemat sieci](diagram1.png)*
 
 ---
 
 ## 3. Procedura Wdrożenia Krok po Kroku (Deployment Steps)
 
-### Krok 1: Konfiguracja Sieci w VirtualBox
-1. W ustawieniach globalnych VirtualBox przeszedłem do zakładki *Sieć* (Network).
-2. Utworzyłem nową sieć NAT (NAT Network) o nazwie `LabNetwork` i przypisałem jej CIDR `10.0.2.0/24` z włączoną obsługą DHCP.
+### Krok 1: Instalacja Konfiguracja oby maszyn w VirtualBox
+1. Pobrem obrazy obu maszyn z oficjalnych stron
+2. Skonfigurowałem je tak aby działały płynnie na moim komputerze
 
-### Krok 2: Konfiguracja Maszyny Atakującej (Kali Linux)
-1. Pobrałem oficjalny obraz VM dla VirtualBox ze strony offensive-security.com.
-2. W ustawieniach maszyny zmieniłem kartę sieciową na `Sieć NAT` (wybierając `LabNetwork`).
-3. Przeprowadziłem podstawowy hardening: zmiana domyślnego hasła systemowego oraz aktualizacja pakietów:
-   ```bash
-   sudo apt update && sudo apt upgrade -y
+### Krok 2: Konfiguracja Sieci w VirtualBox dla obu maszyn
+1. Wszedlem w ustawienia sieci obu maszyn.
+2. Dla Kali Linux ustawiłem dwie karty sieciowe, NAT oraz Internal Network z nazwą LAB_NET
+3. W Ubuntu Server do momentu pobrania Dockera oraz OWASP Juice Shop miałem karte NAT, natomiast po konfiguracji dockera zmieniłem na Internal Network z nazwą LAB_NET 
+
+c.n.d nie chce mi sie :3
